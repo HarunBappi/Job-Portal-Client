@@ -18,7 +18,7 @@ export default function MyApplications() {
         axios.get(`http://localhost:5000/job_application?email=${user.email}`, {
           withCredentials: true
         })
-        .then(res => console.log(setJobs(res.data)))
+        .then(res =>setJobs(res.data))
 
     },[user.email])
   return (
