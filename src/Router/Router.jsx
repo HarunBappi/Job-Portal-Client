@@ -27,7 +27,7 @@ import PrivateRoute from "./PrivateRoute";
         {
           path: '/jobs/:id',
           element:<PrivateRoute><JobDetails></JobDetails></PrivateRoute>,
-          loader: ({params})=> fetch(`http://localhost:5000/jobs/${params.id}`)
+          loader: ({params})=> fetch(`https://job-portal-server-woad.vercel.app/jobs/${params.id}`)
         },
         {
           path:'/jobApply/:id',
@@ -50,7 +50,7 @@ import PrivateRoute from "./PrivateRoute";
         {
           path:'/viewApplications/:job_id',
           element: <PrivateRoute><ViewApplications></ViewApplications></PrivateRoute>,
-          loader: ({params})=> fetch(`http://localhost:5000/job_application/jobs/${params.job_id}`)
+          loader: ({params})=> fetch(`https://job-portal-server-woad.vercel.app/job_application/jobs/${params.job_id}`)
         },
         {
             path:'/register',

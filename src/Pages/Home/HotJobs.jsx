@@ -6,7 +6,7 @@ export default function HotJobs() {
     const [jobs, setJobs] = useState([])
 
     useEffect(()=>{
-        fetch('http://localhost:5000/jobs')
+        fetch('https://job-portal-server-woad.vercel.app/jobs')
         .then(res => res.json())
         .then(data => {
             setJobs(data)

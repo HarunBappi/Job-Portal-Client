@@ -9,7 +9,7 @@ export default function ViewApplications() {
     const data = {
       status: e.target.value,
     };
-    fetch(`http://localhost:5000/job_application/${id}`, {
+    fetch(`https://job-portal-server-woad.vercel.app/job_application/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

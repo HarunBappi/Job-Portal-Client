@@ -22,7 +22,7 @@ export default function JobApply() {
       github,
       resume,
     };
-    fetch("http://localhost:5000/job_application", {
+    fetch("https://job-portal-server-woad.vercel.app/job_application", {
       method: "POST",
       headers: {
         "content-type": "application/json",
