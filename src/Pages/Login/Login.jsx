@@ -1,27 +1,35 @@
+import axios from "axios";
 import Lottie from "lottie-react";
 import { useContext } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import loginLottieData from "../../assets/login.json";
 import AuthContext from "../../Context/AuthContext";
 import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 export default function Login() {
   const { signInUser } = useContext(AuthContext);
-  const location = useLocation()
-  const navigate = useNavigate()
-
+  // const location = useLocation()
+  // const navigate = useNavigate()
+  // const form = location.state || ''
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
 
-    console.log(email, password);
+    // console.log(email, password);
 
     signInUser(email, password)
       .then((result) => {
-        console.log(result.user);
-        navigate(location.state || '')
+        console.log("Sign in",result.user.email);
+        const user = {email : email}
+        axios.post('http://localhost:5000/jwt', user, {
+          withCredentials: true 
+        })
+        .then(res =>{
+          console.log(res.data)
+        })
+
+        // navigate(form)
       })
       .catch((error) => {
         console.log(error.message);
