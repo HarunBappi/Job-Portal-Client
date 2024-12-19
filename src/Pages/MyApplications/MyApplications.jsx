@@ -1,48 +1,54 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
-import useAuth from "../../Hooks/useAuth"
-
+import { useEffect, useState } from "react";
+import useAuth from "../../Hooks/useAuth";
+import useAxiossecure from "../../Hooks/useAxiossecure";
 
 export default function MyApplications() {
-    const {user} = useAuth()
-    const [jobs, setJobs] = useState([])
+  const { user } = useAuth();
+  const [jobs, setJobs] = useState([]);
+  const axiosSecure = useAxiossecure();
 
+  useEffect(() => {
+    // fetch(`http://localhost:5000/job_application?email=${user.email}`)
+    // .then(res => res.json())
+    // .then(data => {
+    //     setJobs(data)
+    // })
 
-    useEffect(()=>{
-        // fetch(`http://localhost:5000/job_application?email=${user.email}`)
-        // .then(res => res.json())
-        // .then(data => {
-        //     setJobs(data)
-        // })
+    // axios.get(`http://localhost:5000/job_application?email=${user.email}`, {
+    //   withCredentials: true
+    // })
+    // .then(res =>setJobs(res.data))
 
-        axios.get(`http://localhost:5000/job_application?email=${user.email}`, {
-          withCredentials: true
-        })
-        .then(res =>setJobs(res.data))
+    // Custome Hooks
 
-    },[user.email])
+    axiosSecure
+      .get(`/job_application?email=${user.email}`)
+      .then((res) => setJobs(res.data));
+
+  }, [user.email, axiosSecure]);
+
   return (
     <div>
-       <h2 className="text-2xl">My Applications : {jobs.length}</h2>
-       <div className="overflow-x-auto">
-      <table className="table">
-        {/* head */}
-        <thead>
-          <tr>
-            <th>
-              <label>
-                <input type="checkbox" className="checkbox" />
-              </label>
-            </th>
-            <th>Name</th>
-            <th>Job</th>
-            <th>Favorite Color</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            jobs.map(job => <tr key={job._id}>
+      <h2 className="text-2xl">My Applications : {jobs.length}</h2>
+      <div className="overflow-x-auto">
+        <table className="table">
+          {/* head */}
+          <thead>
+            <tr>
+              <th>
+                <label>
+                  <input type="checkbox" className="checkbox" />
+                </label>
+              </th>
+              <th>Name</th>
+              <th>Job</th>
+              <th>Favorite Color</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {jobs.map((job) => (
+              <tr key={job._id}>
                 <th>
                   <label>
                     <input type="checkbox" className="checkbox" />
@@ -75,11 +81,11 @@ export default function MyApplications() {
                 <th>
                   <button className="btn bg-red-400 btn-xs">Delete</button>
                 </th>
-              </tr> )
-          }
-        </tbody>
-      </table>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
-    </div>
-  )
+  );
 }
